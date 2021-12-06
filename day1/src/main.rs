@@ -11,11 +11,7 @@ fn main() {
         .collect::<Vec<i32>>();
     let mut increasing: u16 = 0;
 
-    for (index, _) in values.iter().enumerate() {
-        if index == 0 {
-            continue;
-        }
-
+    for index in 1..values.len() {
         if values[index - 1] < values[index] {
             increasing += 1;
         }
