@@ -13,8 +13,8 @@ fn main() -> Result<(), std::io::Error> {
     let mut epsilon_string = String::new();
 
     for line in lines {
-        for (index, char) in line.chars().enumerate() {
-            bits[index] += char.to_digit(10).unwrap();
+        for (index, character) in line.chars().enumerate() {
+            bits[index] += character.to_digit(10).unwrap();
         }
     }
 
