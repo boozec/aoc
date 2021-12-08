@@ -30,7 +30,7 @@ fn part1(grids: &Vec<Vec<u32>>, mut inputs: Vec<u32>) -> u32 {
             }
 
             // Search by cols
-            if winner >= 0 {
+            if winner < 0 {
                 for j in 0..5 {
                     let mut n = 0;
                     for k in [0, 5, 10, 15, 20] {
