@@ -1,16 +1,16 @@
 pub fn get_sums(input: &str) -> Vec<i32> {
-    let groups: Vec<&str> = input.split("\n\n").collect::<Vec<&str>>();
-    let data_groups = groups
+    let groups: Vec<&str> = input.split("\n\n").collect();
+    let data_groups: Vec<i32> = groups
         .into_iter()
         .map(|x| {
             let numbers: i32 = x
-                .split('\n')
+                .lines()
                 .map(|x| x.parse::<i32>().unwrap_or_default())
                 .sum();
 
             return numbers;
         })
-        .collect::<Vec<i32>>();
+        .collect();
 
     data_groups
 }
@@ -25,9 +25,7 @@ pub fn part2(input: &str) -> i32 {
     let mut sums = get_sums(input);
 
     sums.sort();
-    sums.reverse();
-
-    sums[0] + sums[1] + sums[2]
+    sums.into_iter().rev().take(3).sum::<i32>()
 }
 
 #[cfg(test)]
