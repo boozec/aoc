@@ -111,9 +111,7 @@ impl Play {
 fn get_plays(input: &str) -> Vec<Play> {
     input
         .trim()
-        .split('\n')
-        .collect::<Vec<&str>>()
-        .into_iter()
+        .lines()
         .map(|x| Play::new(x))
         .collect::<Vec<Play>>()
 }
