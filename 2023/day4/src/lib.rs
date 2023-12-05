@@ -19,24 +19,26 @@ pub fn part1(input: &str) -> u32 {
         let numbers: Vec<String> = card.split('|').map(|x| x.trim().to_string()).collect();
         assert_eq!(numbers.len(), 2);
 
-        let winnings: Vec<_> = numbers[0]
-            .replace("  ", " ")
-            .split(' ')
-            .map(|x| x.trim().parse::<u32>().unwrap())
-            .collect();
-        let plays: Vec<_> = numbers[1]
-            .replace("  ", " ")
-            .split(' ')
-            .map(|x| x.trim().parse::<u32>().unwrap())
+        let nums: Vec<Vec<_>> = numbers
+            .iter()
+            .map(|x| {
+                x.replace("  ", " ")
+                    .split(' ')
+                    .map(|x| x.trim().parse::<u32>().unwrap())
+                    .collect()
+            })
             .collect();
 
-        let mut k = 0;
+        assert_eq!(nums.len(), 2);
+        let (winnings, plays) = (&nums[0], &nums[1]);
+
+        let mut k = 0.5;
         for win in winnings {
             if plays.contains(&win) {
-                k = if k == 0 { 1 } else { k * 2 };
+                k *= 2.;
             }
         }
-        res += k;
+        res += k as u32;
     }
 
     res
@@ -65,16 +67,18 @@ pub fn part2(input: &str) -> u32 {
         let numbers: Vec<String> = card.split('|').map(|x| x.trim().to_string()).collect();
         assert_eq!(numbers.len(), 2);
 
-        let winnings: Vec<_> = numbers[0]
-            .replace("  ", " ")
-            .split(' ')
-            .map(|x| x.trim().parse::<u32>().unwrap())
+        let nums: Vec<Vec<_>> = numbers
+            .iter()
+            .map(|x| {
+                x.replace("  ", " ")
+                    .split(' ')
+                    .map(|x| x.trim().parse::<u32>().unwrap())
+                    .collect()
+            })
             .collect();
-        let plays: Vec<_> = numbers[1]
-            .replace("  ", " ")
-            .split(' ')
-            .map(|x| x.trim().parse::<u32>().unwrap())
-            .collect();
+
+        assert_eq!(nums.len(), 2);
+        let (winnings, plays) = (&nums[0], &nums[1]);
 
         let mut k = 0;
         for win in winnings {
@@ -83,7 +87,7 @@ pub fn part2(input: &str) -> u32 {
             }
         }
 
-        for j in i + 1..i + 1 + k {
+        for j in (i + 1)..(i + 1 + k) {
             incr[j] += 1 + incr[i];
         }
 
