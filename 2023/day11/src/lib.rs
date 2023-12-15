@@ -67,6 +67,32 @@ pub fn part1(input: &str) -> u32 {
 pub fn part2(input: &str) -> u32 {
     let mut res: u32 = 0;
 
+    let mut m: Vec<Vec<i16>> = input
+        .trim_end()
+        .split('\n')
+        .map(|y| y.chars().map(|x| if x == '#' { 1 } else { 0 }).collect())
+        .collect();
+
+    expand(&mut m, 1);
+    let mut hs: Vec<(usize, usize)> = vec![];
+    let rows = m.len();
+    let cols = m[0].len();
+    for i in 0..rows {
+        for j in 0..cols {
+            if m[i][j] > 0 {
+                hs.push((i, j));
+            }
+        }
+    }
+
+    let n = hs.len();
+    for i in 0..n {
+        for j in i + 1..n {
+            res += ((hs[j].1 as i16 - hs[i].1 as i16).abs()
+                + (hs[j].0 as i16 - hs[i].0 as i16).abs()) as u32;
+        }
+    }
+
     res
 }
 
