@@ -30,11 +30,7 @@ let rec parse ?(result = 0) lines =
 
       let k =
         Int.shift_left 1
-          (List.length
-             (List.map
-                (fun win -> if List.mem win plays = true then 1 else 0)
-                winnings
-             |> List.filter (fun i -> i = 1))
+          (List.length (List.filter (fun win -> List.mem win plays) winnings)
           - 1)
       in
 
